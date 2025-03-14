@@ -1,158 +1,190 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Busque Ajuda</title>
-    <style>
-        /* Estilos gerais */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #ffe066;
-            color: black;
-            transition: background 0.3s, color 0.3s;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Busque Ajuda</title>
+  <style>
+    /* Estilos gerais */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #ffe066; /* Cor de fundo clara */
+      color: black;
+      transition: background 0.3s, color 0.3s;
+    }
 
-        /* Layout principal */
-        .container {
-            display: flex;
-            flex-direction: column;
-            text-align: center;
-        }
+    /* Layout principal */
+    .container {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+    }
 
-        /* Barra lateral */
-        .sidebar, .help {
-            background: #ffcc00;
-            padding: 20px;
-        }
+    /* Barra lateral esquerda */
+    .sidebar {
+      background: #ffcc00;
+      padding: 20px;
+    }
 
-        .sidebar h1, .help h2 {
-            font-size: 24px;
-        }
+    .sidebar h1 {
+      font-size: 24px;
+      margin: 0;
+    }
 
-        .sidebar img, .help img {
-            width: 80px;
-            margin-top: 10px;
-        }
+    /* Barra lateral direita (apoio imediato) */
+    .help {
+      background: #ffcc00;
+      padding: 20px;
+    }
+    .help h2 {
+      font-size: 24px;
+      margin: 0;
+    }
 
-        /* Seções de formulário */
-        .content {
-            padding: 20px;
-        }
+    /* Imagens claras e escuras */
+    .image-light, .image-dark {
+      width: 80px;
+      margin-top: 10px;
+      display: block; /* Para garantir que apareça como bloco */
+    }
+    .image-dark {
+      display: none; /* Começa oculta no modo claro */
+    }
 
-        h2 {
-            font-size: 20px;
-            margin-top: 15px;
-        }
+    /* Conteúdo central */
+    .content {
+      padding: 20px;
+    }
+    h2 {
+      font-size: 20px;
+      margin-top: 15px;
+    }
+    .options {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    label {
+      background: white;
+      padding: 10px;
+      border-radius: 8px;
+      margin: 5px;
+      width: 200px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+    }
+    input[type="time"] {
+      padding: 10px;
+      width: 180px;
+      font-size: 16px;
+      border: 1px solid black;
+    }
 
-        .options {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+    /* Botão de modo escuro */
+    .dark-mode-toggle {
+      margin-top: 20px;
+      padding: 10px;
+      cursor: pointer;
+      border: none;
+      background: #333;
+      color: white;
+      border-radius: 5px;
+    }
 
-        label {
-            background: white;
-            padding: 10px;
-            border-radius: 8px;
-            margin: 5px;
-            width: 200px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-        }
+    /* Quando o modo escuro estiver ativo */
+    .dark-mode {
+      background-color: #000; /* Fundo escuro */
+      color: #fff;
+    }
 
-        input[type="time"] {
-            padding: 10px;
-            width: 180px;
-            font-size: 16px;
-            border: 1px solid black;
-        }
+    .dark-mode .sidebar,
+    .dark-mode .help {
+      background: #0077b6; /* Azul escuro */
+    }
 
-        /* Modo escuro */
-        .dark-mode {
-            background-color: black;
-            color: white;
-        }
+    .dark-mode label {
+      background: #222;
+      color: #fff;
+    }
 
-        .dark-mode .sidebar, .dark-mode .help {
-            background: #0077b6;
-        }
+    .dark-mode .image-light {
+      display: none; /* Some a imagem clara */
+    }
+    .dark-mode .image-dark {
+      display: block; /* Mostra a imagem escura */
+    }
 
-        .dark-mode label {
-            background: #222;
-            color: white;
-        }
-
-        .dark-mode-toggle {
-            margin-top: 20px;
-            padding: 10px;
-            cursor: pointer;
-            border: none;
-            background: #333;
-            color: white;
-            border-radius: 5px;
-        }
-
-        /* Responsividade */
-        @media (min-width: 768px) {
-            .container {
-                flex-direction: row;
-                justify-content: space-between;
-            }
-
-            .sidebar, .help {
-                width: 20%;
-            }
-
-            .content {
-                width: 60%;
-            }
-        }
-    </style>
+    /* Responsividade */
+    @media (min-width: 768px) {
+      .container {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+      .sidebar, .help {
+        width: 20%;
+      }
+      .content {
+        width: 60%;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <div class="container">
-        <aside class="sidebar">
-            <h1><span class="red">B</span>USQUE<br><span class="red">A</span>JUDA.<br><span class="red">C</span>OM</h1>
-            <img src="imagem-ajuda.png" alt="Imagem de ajuda">
-        </aside>
+  <div class="container">
 
-        <main class="content">
-            <h2>Como prefere ser atendido?</h2>
-            <div class="options">
-                <label><input type="radio" name="atendimento" value="remoto"> Remoto</label>
-                <label><input type="radio" name="atendimento" value="presencial" checked> Presencial <span class="search-icon">🔍</span></label>
-            </div>
+    <!-- Barra lateral esquerda -->
+    <aside class="sidebar">
+      <h1>
+        <span style="color:red;">B</span>USQUE<br>
+        <span style="color:red;">A</span>JUDA.<br>
+        <span style="color:red;">C</span>OM
+      </h1>
+      <!-- Duas imagens: clara e escura -->
+      <img src="imagem-clara.png" alt="Imagem clara" class="image-light">
+      <img src="imagem-escura.png" alt="Imagem escura" class="image-dark">
+    </aside>
 
-            <h2>Qual tipo de atendimento?</h2>
-            <div class="options">
-                <label><input type="radio" name="tipo" value="medico"> Médico</label>
-                <label><input type="radio" name="tipo" value="psiquiatra"> Psiquiatra</label>
-                <label><input type="radio" name="tipo" value="psicologo" checked> Psicólogo</label>
-            </div>
+    <!-- Conteúdo central -->
+    <main class="content">
+      <h2>Como prefere ser atendido?</h2>
+      <div class="options">
+        <label><input type="radio" name="atendimento" value="remoto"> Remoto</label>
+        <label><input type="radio" name="atendimento" value="presencial" checked> Presencial <span class="search-icon">🔍</span></label>
+      </div>
 
-            <h2>Horário da consulta:</h2>
-            <input type="time">
+      <h2>Qual tipo de atendimento?</h2>
+      <div class="options">
+        <label><input type="radio" name="tipo" value="medico"> Médico</label>
+        <label><input type="radio" name="tipo" value="psiquiatra"> Psiquiatra</label>
+        <label><input type="radio" name="tipo" value="psicologo" checked> Psicólogo</label>
+      </div>
 
-            <button class="dark-mode-toggle">Alternar Modo Escuro</button>
-        </main>
+      <h2>Horário da consulta:</h2>
+      <input type="time">
 
-        <aside class="help">
-            <h2>Disque <span class="red">188</span> para <span class="red">Apoio Imediato</span></h2>
-            <p>24 horas</p>
-            <img src="imagem-ajuda.png" alt="Imagem de ajuda">
-        </aside>
-    </div>
+      <button class="dark-mode-toggle">Alternar Modo Escuro</button>
+    </main>
 
-    <script>
-        document.querySelector(".dark-mode-toggle").addEventListener("click", function() {
-            document.body.classList.toggle("dark-mode");
-        });
-    </script>
+    <!-- Barra lateral direita -->
+    <aside class="help">
+      <h2>Disque <span style="color:red;">188</span> para <span style="color:red;">Apoio Imediato</span></h2>
+      <p>24 horas</p>
+      <!-- Duas imagens: clara e escura (se quiser a mesma imagem, repita) -->
+      <img src="imagem-clara!" alt="Imagem clara" class="image-light">[Screenshot_20250314_120327_Canva.jpg]"<img src="[Screenshot_20250314_120351_Canva.jpg]" alt="Imagem escura" class="image-dark">
+    </aside>
+
+  </div>
+
+  <!-- Script para alternar o modo escuro -->
+  <script>
+    document.querySelector(".dark-mode-toggle").addEventListener("click", function() {
+      document.body.classList.toggle("dark-mode");
+    });
+  </script>
 
 </body>
 </html>
