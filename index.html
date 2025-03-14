@@ -1,141 +1,158 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Busque Ajuda</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Busque Ajuda</title>
+    <style>
+        /* Estilos gerais */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffe066;
+            color: black;
+            transition: background 0.3s, color 0.3s;
+        }
 
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #FFDD00; /* Fundo amarelo */
-      color: #000; /* Texto preto para alto contraste */
-    }
+        /* Layout principal */
+        .container {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+        }
 
-    .container {
-      display: flex;
-      flex-direction: row;
-      border-left: 5px solid #000;
-      border-right: 5px solid #000;
-      margin: 0 auto;
-      max-width: 1200px;
-      min-height: 100vh;
-      position: relative;
-    }
+        /* Barra lateral */
+        .sidebar, .help {
+            background: #ffcc00;
+            padding: 20px;
+        }
 
-    .left-col, .center-col, .right-col {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      padding: 20px;
-    }
+        .sidebar h1, .help h2 {
+            font-size: 24px;
+        }
 
-    .left-col {
-      border-right: 2px solid #000;
-    }
-    .center-col {
-      border-right: 2px solid #000;
-    }
+        .sidebar img, .help img {
+            width: 80px;
+            margin-top: 10px;
+        }
 
-    h1, h2 {
-      text-align: center;
-    }
+        /* Seções de formulário */
+        .content {
+            padding: 20px;
+        }
 
-    .red {
-      color: red;
-    }
+        h2 {
+            font-size: 20px;
+            margin-top: 15px;
+        }
 
-    /* Botões */
-    .options {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 15px;
-    }
+        .options {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-    .option-btn {
-      background-color: #fff;
-      border: 2px solid #000;
-      border-radius: 5px;
-      padding: 8px 12px;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: background-color 0.2s, color 0.2s;
-    }
+        label {
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 5px;
+            width: 200px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+        }
 
-    .option-btn.selected {
-      background-color: #000;
-      color: #fff;
-    }
+        input[type="time"] {
+            padding: 10px;
+            width: 180px;
+            font-size: 16px;
+            border: 1px solid black;
+        }
 
-    #localInput {
-      display: none;
-      margin: 10px 0;
-    }
+        /* Modo escuro */
+        .dark-mode {
+            background-color: black;
+            color: white;
+        }
 
-    #localInput input {
-      padding: 5px;
-      font-size: 1rem;
-      width: 200px;
-      border: 2px solid #000;
-      border-radius: 5px;
-    }
+        .dark-mode .sidebar, .dark-mode .help {
+            background: #0077b6;
+        }
 
-    .time-input {
-      margin-bottom: 20px;
-    }
+        .dark-mode label {
+            background: #222;
+            color: white;
+        }
 
-    .time-input input {
-      padding: 5px;
-      font-size: 1rem;
-      border: 2px solid #000;
-      border-radius: 5px;
-    }
+        .dark-mode-toggle {
+            margin-top: 20px;
+            padding: 10px;
+            cursor: pointer;
+            border: none;
+            background: #333;
+            color: white;
+            border-radius: 5px;
+        }
 
-    /* Acessibilidade */
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      border: 0;
-    }
+        /* Responsividade */
+        @media (min-width: 768px) {
+            .container {
+                flex-direction: row;
+                justify-content: space-between;
+            }
 
-    /* Responsividade */
-    @media (max-width: 768px) {
-      .container {
-        flex-direction: column;
-        border-left: none;
-        border-right: none;
-        border-top: 5px solid #000;
-        border-bottom: 5px solid #000;
-      }
+            .sidebar, .help {
+                width: 20%;
+            }
 
-      .left-col, .center-col, .right-col {
-        border-right: none;
-        border-bottom: 2px solid #000;
-      }
-
-      .right-col {
-        border-bottom: none;
-      }
-    }
-  </style>
+            .content {
+                width: 60%;
+            }
+        }
+    </style>
 </head>
 <body>
 
-  <div class="container">
-    <div class="left-col">
-      <h1>
-        <span class="red">B</span
+    <div class="container">
+        <aside class="sidebar">
+            <h1><span class="red">B</span>USQUE<br><span class="red">A</span>JUDA.<br><span class="red">C</span>OM</h1>
+            <img src="imagem-ajuda.png" alt="Imagem de ajuda">
+        </aside>
+
+        <main class="content">
+            <h2>Como prefere ser atendido?</h2>
+            <div class="options">
+                <label><input type="radio" name="atendimento" value="remoto"> Remoto</label>
+                <label><input type="radio" name="atendimento" value="presencial" checked> Presencial <span class="search-icon">🔍</span></label>
+            </div>
+
+            <h2>Qual tipo de atendimento?</h2>
+            <div class="options">
+                <label><input type="radio" name="tipo" value="medico"> Médico</label>
+                <label><input type="radio" name="tipo" value="psiquiatra"> Psiquiatra</label>
+                <label><input type="radio" name="tipo" value="psicologo" checked> Psicólogo</label>
+            </div>
+
+            <h2>Horário da consulta:</h2>
+            <input type="time">
+
+            <button class="dark-mode-toggle">Alternar Modo Escuro</button>
+        </main>
+
+        <aside class="help">
+            <h2>Disque <span class="red">188</span> para <span class="red">Apoio Imediato</span></h2>
+            <p>24 horas</p>
+            <img src="imagem-ajuda.png" alt="Imagem de ajuda">
+        </aside>
+    </div>
+
+    <script>
+        document.querySelector(".dark-mode-toggle").addEventListener("click", function() {
+            document.body.classList.toggle("dark-mode");
+        });
+    </script>
+
+</body>
+</html>
