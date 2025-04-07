@@ -1,88 +1,126 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Busque Ajuda</title>
   <style>
-    /* Estilos gerais */
-    body {
-      font-family: Arial, sans-serif;
+    /* Reset básico */
+    * {
       margin: 0;
       padding: 0;
-      background-color: #ffe066; /* Cor de fundo clara */
+      box-sizing: border-box;
+    }
+    /* Modo claro (padrão) */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #ffe066; /* Fundo do n.16 */
       color: black;
       transition: background 0.3s, color 0.3s;
     }
-
-    /* Layout principal */
+    /* Container principal com bordas pretas laterais */
     .container {
       display: flex;
-      flex-direction: column;
-      text-align: center;
+      flex-direction: row;
+      border-left: 5px solid #000;
+      border-right: 5px solid #000;
+      margin: 0 auto;
+      max-width: 1200px;
+      min-height: 100vh;
+      position: relative;
     }
-
-    /* Barra lateral esquerda */
-    .sidebar {
-      background: #ffcc00;
-      padding: 20px;
-    }
-
-    .sidebar h1 {
-      font-size: 24px;
-      margin: 0;
-    }
-
-    /* Barra lateral direita (apoio imediato) */
-    .help {
-      background: #ffcc00;
-      padding: 20px;
-    }
-    .help h2 {
-      font-size: 24px;
-      margin: 0;
-    }
-
-    /* Imagens claras e escuras */
-    .image-light, .image-dark {
-      width: 80px;
-      margin-top: 10px;
-      display: block; /* Para garantir que apareça como bloco */
-    }
-    .image-dark {
-      display: none; /* Começa oculta no modo claro */
-    }
-
-    /* Conteúdo central */
-    .content {
-      padding: 20px;
-    }
-    h2 {
-      font-size: 20px;
-      margin-top: 15px;
-    }
-    .options {
+    /* Colunas */
+    .left-col, .center-col, .right-col {
+      flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: flex-start;
+      padding: 20px;
     }
-    label {
-      background: white;
-      padding: 10px;
-      border-radius: 8px;
-      margin: 5px;
-      width: 200px;
-      cursor: pointer;
+    /* Adiciona fundo nos lados conforme n.16 */
+    .left-col, .right-col {
+      background-color: #ffcc00;
+    }
+    .center-col {
+      background-color: #fff; /* Pode ajustar se preferir */
+    }
+    /* Divisão entre colunas */
+    .left-col {
+      border-right: 2px solid #000;
+    }
+    .center-col {
+      border-right: 2px solid #000;
+    }
+    /* Títulos e textos */
+    .left-col h1 {
+      font-size: 2rem;
+      line-height: 1.3;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .left-col h1 .red {
+      color: red;
+    }
+    .center-col h2 {
+      font-size: 1.2rem;
+      margin: 15px 0;
+      font-weight: bold;
+      text-align: center;
+    }
+    .right-col h2 {
+      font-size: 1.4rem;
+      text-align: center;
+      line-height: 1.3;
+      margin-bottom: 20px;
+    }
+    .right-col .red {
+      color: red;
+    }
+    /* Botões de opção */
+    .options {
       display: flex;
-      justify-content: space-between;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 15px;
     }
-    input[type="time"] {
-      padding: 10px;
-      width: 180px;
-      font-size: 16px;
-      border: 1px solid black;
+    .option-btn {
+      background-color: #fff;
+      border: 2px solid #000;
+      border-radius: 5px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.2s, color 0.2s;
+      text-transform: lowercase;
     }
-
+    .option-btn.selected {
+      background-color: #000;
+      color: #fff;
+    }
+    /* Campo para local (presencial) */
+    #localInput {
+      display: none;
+      margin: 10px 0;
+    }
+    #localInput input {
+      padding: 5px;
+      font-size: 1rem;
+      width: 200px;
+      border: 2px solid #000;
+      border-radius: 5px;
+    }
+    /* Campo de horário */
+    .time-input {
+      margin-bottom: 20px;
+    }
+    .time-input input {
+      padding: 5px;
+      font-size: 1rem;
+      border: 2px solid #000;
+      border-radius: 5px;
+    }
     /* Botão de modo escuro */
     .dark-mode-toggle {
       margin-top: 20px;
@@ -90,101 +128,150 @@
       cursor: pointer;
       border: none;
       background: #333;
-      color: white;
+      color: #fff;
       border-radius: 5px;
+      transition: background 0.3s, color 0.3s;
     }
-
-    /* Quando o modo escuro estiver ativo */
-    .dark-mode {
-      background-color: #000; /* Fundo escuro */
-      color: #fff;
-    }
-
-    .dark-mode .sidebar,
-    .dark-mode .help {
-      background: #0077b6; /* Azul escuro */
-    }
-
-    .dark-mode label {
-      background: #222;
-      color: #fff;
-    }
-
-    .dark-mode .image-light {
-      display: none; /* Some a imagem clara */
-    }
-    .dark-mode .image-dark {
-      display: block; /* Mostra a imagem escura */
-    }
-
-    /* Responsividade */
-    @media (min-width: 768px) {
+    /* Responsividade: colunas empilhadas no mobile */
+    @media (max-width: 768px) {
       .container {
-        flex-direction: row;
-        justify-content: space-between;
+        flex-direction: column;
+        border-left: none;
+        border-right: none;
+        border-top: 5px solid #000;
+        border-bottom: 5px solid #000;
       }
-      .sidebar, .help {
-        width: 20%;
+      .left-col, .center-col, .right-col {
+        border-right: none;
+        border-bottom: 2px solid #000;
       }
-      .content {
-        width: 60%;
+      .right-col {
+        border-bottom: none;
       }
+    }
+    /* Estilos para modo escuro */
+    .dark-mode {
+      background-color: #000;
+      color: #fff;
+    }
+    .dark-mode .left-col,
+    .dark-mode .right-col {
+      background-color: #0077b6; /* Azul escuro conforme n.16 */
+    }
+    .dark-mode .center-col {
+      background-color: #000;
+    }
+    .dark-mode .option-btn {
+      background-color: #222;
+      color: #fff;
+      border-color: #fff;
+    }
+    .dark-mode .option-btn.selected {
+      background-color: #fff;
+      color: #000;
+    }
+    .dark-mode input[type="time"],
+    .dark-mode #localInput input {
+      background-color: #222;
+      color: #fff;
+      border-color: #fff;
+    }
+    .dark-mode .dark-mode-toggle {
+      background: #555;
+      color: #fff;
     }
   </style>
 </head>
 <body>
-
   <div class="container">
-
-    <!-- Barra lateral esquerda -->
-    <aside class="sidebar">
+    <!-- Coluna Esquerda -->
+    <div class="left-col">
       <h1>
-        <span style="color:red;">B</span>USQUE<br>
-        <span style="color:red;">A</span>JUDA.<br>
-        <span style="color:red;">C</span>OM
+        <span class="red">B</span>USQUE<br>
+        <span class="red">A</span>JUDA.<br>
+        <span class="red">C</span>OM
       </h1>
-      <!-- Duas imagens: clara e escura -->
-      <img src="imagem-clara.png" alt="Imagem clara" class="image-light">
-      <img src="imagem-escura.png" alt="Imagem escura" class="image-dark">
-    </aside>
+    </div>
 
-    <!-- Conteúdo central -->
-    <main class="content">
-      <h2>Como prefere ser atendido?</h2>
+    <!-- Coluna Central -->
+    <div class="center-col">
+      <h2>COMO PREFERE SER ATENDIDO?</h2>
       <div class="options">
-        <label><input type="radio" name="atendimento" value="remoto"> Remoto</label>
-        <label><input type="radio" name="atendimento" value="presencial" checked> Presencial <span class="search-icon">🔍</span></label>
+        <button class="option-btn" id="btnRemoto">remoto</button>
+        <button class="option-btn" id="btnPresencial">presencial</button>
+      </div>
+      <div id="localInput">
+        <input type="text" placeholder="Escolha o local..." />
       </div>
 
-      <h2>Qual tipo de atendimento?</h2>
+      <h2>QUAL TIPO DE ATENDIMENTO?</h2>
       <div class="options">
-        <label><input type="radio" name="tipo" value="medico"> Médico</label>
-        <label><input type="radio" name="tipo" value="psiquiatra"> Psiquiatra</label>
-        <label><input type="radio" name="tipo" value="psicologo" checked> Psicólogo</label>
+        <button class="option-btn" id="btnMedico">médico</button>
+        <button class="option-btn" id="btnPsiquiatra">psiquiatra</button>
+        <button class="option-btn" id="btnPsicologo">psicólogo</button>
       </div>
 
-      <h2>Horário da consulta:</h2>
-      <input type="time">
+      <h2>HORÁRIO DA CONSULTA:</h2>
+      <div class="time-input">
+        <input type="time" />
+      </div>
 
+      <!-- Botão para alternar modo escuro -->
       <button class="dark-mode-toggle">Alternar Modo Escuro</button>
-    </main>
+    </div>
 
-    <!-- Barra lateral direita -->
-    <aside class="help">
-      <h2>Disque <span style="color:red;">188</span> para <span style="color:red;">Apoio Imediato</span></h2>
-      <p>24 horas</p>
-      <!-- Duas imagens: clara e escura (se quiser a mesma imagem, repita) -->
-      <img src="imagem-clara!" alt="Imagem clara" class="image-light">[Screenshot_20250314_120327_Canva.jpg]"<img src="[Screenshot_20250314_120351_Canva.jpg]" alt="Imagem escura" class="image-dark">
-    </aside>
-
+    <!-- Coluna Direita -->
+    <div class="right-col">
+      <h2>
+        DISQUE <span class="red">188</span><br>
+        para <span class="red">APOIO IMEDIATO</span><br>
+        24 horas
+      </h2>
+    </div>
   </div>
 
-  <!-- Script para alternar o modo escuro -->
   <script>
+    // Seletores dos botões de atendimento
+    const btnRemoto = document.getElementById('btnRemoto');
+    const btnPresencial = document.getElementById('btnPresencial');
+    const localInput = document.getElementById('localInput');
+
+    // Botões de tipo de atendimento
+    const btnMedico = document.getElementById('btnMedico');
+    const btnPsiquiatra = document.getElementById('btnPsiquiatra');
+    const btnPsicologo = document.getElementById('btnPsicologo');
+
+    // Alterna seleção dos botões de forma independente
+    btnRemoto.addEventListener('click', () => {
+      btnRemoto.classList.toggle('selected');
+      localInput.style.display = 'none';
+      if (btnPresencial.classList.contains('selected')) {
+        btnPresencial.classList.remove('selected');
+      }
+    });
+
+    btnPresencial.addEventListener('click', () => {
+      btnPresencial.classList.toggle('selected');
+      if (btnPresencial.classList.contains('selected')) {
+        localInput.style.display = 'block';
+        if (btnRemoto.classList.contains('selected')) {
+          btnRemoto.classList.remove('selected');
+        }
+      } else {
+        localInput.style.display = 'none';
+      }
+    });
+
+    [btnMedico, btnPsiquiatra, btnPsicologo].forEach((btn) => {
+      btn.addEventListener('click', () => {
+        btn.classList.toggle('selected');
+      });
+    });
+
+    // Toggle de modo escuro
     document.querySelector(".dark-mode-toggle").addEventListener("click", function() {
       document.body.classList.toggle("dark-mode");
     });
   </script>
-
 </body>
 </html>
